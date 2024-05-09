@@ -1,9 +1,9 @@
 import React from 'react'
 
-const rent = () => {
+const Rent = () => {
   return (
-    <div>rent</div>
+    <div>Rent</div>
   )
 }
 
-export default rent
+export default Rent
