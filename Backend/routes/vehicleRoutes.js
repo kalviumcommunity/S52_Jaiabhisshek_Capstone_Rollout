@@ -9,15 +9,26 @@ router.get("/vehicles", (req, res) => {
     .catch((err) => res.json(err))
 })
 
+
 const addVehicleSchema = Joi.object({
     contactNumber: Joi.number().required(),
     location: Joi.string().required(),
     costPerDay: Joi.string().required(),
     insurance: Joi.boolean().required(),
     limit: Joi.number().required(),
-    yearOfManufacture: Joi.string().required(),
+    yearOfManufacture: Joi.number().required(),
     engine: Joi.string().required(),
     vehicleName: Joi.string().required()
+})
+
+router.post("/addVehicle", (req, res) => {
+    const {error} = addVehicleSchema.validate(req.body)
+    if(error){
+        return res.status(400).send(error.details[0].message)
+    }
+    vehicleModel.create(req.body)
+    .then((eachVehicle) => res.status(201).json(eachVehicle))
+    .catch(err => res.json(err))
 })
 
 
