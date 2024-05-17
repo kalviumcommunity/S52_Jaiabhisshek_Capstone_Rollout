@@ -4,7 +4,7 @@ const VehicleSchema = new mongoose.Schema({
     contactNumber: Number,
     location: String,
     costPerDay: String,
-    insurance: Boolean,
+    insurance: String,
     limit: Number,
     yearOfManufacture: Number,
     engine: String,
