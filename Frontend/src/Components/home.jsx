@@ -17,11 +17,19 @@ const Home = () => {
   useEffect(() => {
     axios.get("http://localhost:3000/vehicles")
     .then((res) => {
-      console.log(res.data)
       setVehicles(res.data)
     })
     .catch((err) => console.log(err))
   }, [])
+
+  const handleDelete = (id) => {
+    axios.delete(`http://localhost:3000/deleteVehicle/${id}`)
+    .then(() => {
+      window.location.reload()
+    })
+    .catch(err => console.log(err))
+  }
+
   return (
     <div>
       <div>
@@ -33,7 +41,7 @@ const Home = () => {
       <div>
         {
           vehicles.map((eachVehicle) => (
-            <div>
+            <div key={eachVehicle._id}>
               <h1>{eachVehicle.vehicleName}</h1>
               <img src='' />
               <button>Details</button>
@@ -46,6 +54,10 @@ const Home = () => {
                 <p>Limit {eachVehicle.limit} km</p>
                 <p>Engine {eachVehicle.engine}</p>
               </div>
+              <Link to={`/updateVehicle/${eachVehicle._id}`}>
+              <button>Update</button>
+              </Link>
+              <button onClick={() => handleDelete(eachVehicle._id)}>Delete</button>
             </div>
           ))
         }
